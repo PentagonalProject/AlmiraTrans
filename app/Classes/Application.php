@@ -5,6 +5,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\App as Slim;
 use Slim\Http\Environment;
+use Slim\Http\Request;
+use Slim\Http\Uri;
 
 /**
  * Class Application
@@ -42,7 +44,28 @@ class Application
                     'displayErrorDetails' => true,
                 ],
                 'view' => function($container) {
-                    return new Template(dirname(__DIR__) . '/Views/', $container);
+                    $template = new Template(dirname(__DIR__) . '/Views/', $container);
+                    /**
+                     * @var Request $request
+                     * @var Uri $uri
+                     */
+                    $request = $container['request'];
+                    $uri = $request->getUri();
+                    $template->setAttributes(
+                        [
+                            'base:url' => rtrim($uri->getBaseUrl(), '/')
+                        ]
+                    );
+                    if (file_exists(dirname(__DIR__).'/property.php')) {
+                        ob_start();
+                        $prop = require_once dirname(__DIR__) .'/property.php';
+                        ob_clean();
+                        if (is_array($prop)) {
+                            $template->setAttributes($prop);
+                        }
+                    }
+
+                    return $template;
                 },
                 'notFoundHandler' => function($container) {
                     return function ($request, $response) use ($container) {
