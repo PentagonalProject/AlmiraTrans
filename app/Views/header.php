@@ -11,12 +11,12 @@ if (!isset($this) || ! $this instanceof Template) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $this->multiByteEntities($this->getAttribute('title'), true);?></title>
   <link rel="canonical" href="<?= $this->getAttribute('base:url');?>">
-  <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?callback=initMap" defer></script>
   <script type="text/javascript">
     var jsBody= <?= json_encode(
         [
             "jquery" => $this->getAttribute('base:url') . '/assets/js/jquery.js',
             "waypoints" => $this->getAttribute('base:url') . '/assets/js/waypoints.js',
+            "map" => "//maps.googleapis.com/maps/api/js?callback=initMap",
             "layout" => $this->getAttribute('base:url') . '/assets/js/layout.js'
         ]
     );?>;

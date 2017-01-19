@@ -13,7 +13,7 @@ $this->partial('header');
           <nav class="nav-header">
             <div class="container">
               <ul class="nav">
-                <li><a href="#top">Beranda</a></li>
+                <li class="active"><a href="#top">Beranda</a></li>
                 <li><a href="#armada">Armada</a></li>
                 <li><a href="#package">Paket Wisata</a></li>
                 <li><a href="#about">Tentang Kami</a></li>

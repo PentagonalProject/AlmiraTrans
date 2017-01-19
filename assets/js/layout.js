@@ -29,8 +29,8 @@
                     var $this = $(this.element),
                         $id = $this.attr('id');
                     if ($id) {
-                        var $target =$navigation.find('li a[href=\\#'+ $id +']').parent('li');
-                        if ($target.length && ! $target.hasClass('active')) {
+                        var $target = $navigation.find('li a[href=\\#'+ $id +']').parent('li');
+                        if ($target.length) {
                             $navigation.find('ul li').removeClass('active');
                             $target.addClass('active');
                         }
