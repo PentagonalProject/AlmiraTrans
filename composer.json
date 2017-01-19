@@ -1,0 +1,21 @@
+{
+    "name": "pentagonal/almiratrans",
+    "description": "Almira Trans Wisata",
+    "type": "project",
+    "require": {
+        "php": ">=5.6",
+        "slim/slim": "^3.7"
+    },
+    "autoload" : {
+        "psr-4": {
+            "Pentagonal\\Project\\AlmiraTrans\\": "app/Classes"
+        }
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "pentagonal",
+            "email": "pentagonaldevelopment@gmail.com"
+        }
+    ]
+}
