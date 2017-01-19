@@ -34,10 +34,17 @@ $this->partial('header');
 
     </section>
     <section id="about" class="full-vh">
-
+        <div id="map" class="map-preload"></div>
     </section>
     <section id="contact" class="footer">
-
+      <div class="container">
+        <footer id="footer">
+          <h2>Hubungi Kami</h2>
+          <div class="copyright">
+            <p>&copy; <?=@date('Y');?></p>
+          </div>
+        </footer>
+      </div>
     </section>
 <?php
 $this->partial('footer');
