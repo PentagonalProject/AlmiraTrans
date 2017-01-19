@@ -1,5 +1,5 @@
 <?php
-namespace Pentagonal\Project\AlmiraTrans;
+namespace PentagonalProject\AlmiraTrans;
 
 use Interop\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;

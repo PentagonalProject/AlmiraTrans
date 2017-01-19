@@ -1,5 +1,5 @@
 {
-    "name": "pentagonal/almiratrans",
+    "name": "pentagonalproject/almiratrans",
     "description": "Almira Trans Wisata",
     "type": "project",
     "require": {
@@ -8,7 +8,7 @@
     },
     "autoload" : {
         "psr-4": {
-            "Pentagonal\\Project\\AlmiraTrans\\": "app/Classes"
+            "PentagonalProject\\AlmiraTrans\\": "app/Classes"
         }
     },
     "license": "GPL",
