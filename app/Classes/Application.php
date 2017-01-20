@@ -172,18 +172,19 @@ class Application
 
     protected function buildRoutes()
     {
+        $mapAll = [
+            'GET',
+            'POTS',
+            'PUT',
+            'PATCH',
+            'DELETE',
+            'CONNECT',
+            'TRACE',
+            'HEAD',
+            'OPTIONS'
+        ];
         $this->slim->map(
-            [
-                'GET',
-                'POTS',
-                'PUT',
-                'PATCH',
-                'DELETE',
-                'CONNECT',
-                'TRACE',
-                'HEAD',
-                'OPTIONS'
-            ],
+            $mapAll,
             '[/]',
             function (ServerRequestInterface $request, ResponseInterface $response) {
                 /**
@@ -191,6 +192,57 @@ class Application
                  */
                 $view = $this['view'];
                 return $view->render('home');
+            }
+        );
+        $this->slim->map(
+            $mapAll,
+            '/google-fonts/{params: (?i)[a-z0-9\-\:\,]+}.css',
+            function (ServerRequestInterface $request, ResponseInterface $response, $params) {
+                $params = $params['params'];
+                $params = explode('-', $params);
+                $GoogleUri = $request->getUri()->getScheme()
+                    . '://fonts.googleapis.com/css?family=';//Lato:300,400,700|Lobster;
+                $GoogleUri .= implode('|', $params);
+                $opts = [
+                    'http' => [
+                        'method'=> "GET",
+                        'header'=> "User-Agent: {$request->getHeader('user-agent')[0]}\r\n"
+                    ]
+                ];
+                $context = stream_context_create($opts);
+                $content = file_get_contents($GoogleUri, false, $context);
+                // Remove Comments
+                $content = preg_replace('/(^\s*|\s*$|\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+)/', '', $content);
+                $regex = '(?six)
+                  \s*+;\s*(})\s*
+                | \s*([*$~^|]?=|[{};,>~+-]|\s+!important\b)\s*
+                | ([[(:])\s+
+                | \s+([\]\)])
+                | \s+(:)\s+
+                (?!
+                    (?>
+                        [^{}"\']++
+                        | \"(?:[^"\\\\]++|\\\\.)*\"
+                        | \'(?:[^\'\\\\]++|\\\\.)*\' 
+                    )*
+                    {
+                )
+                | ^\s+|\s+ \z
+                | (\s)\s+
+                | (\#((?:[a-f]|[A-F]|[0-9]){3}))(?:\\2)?\b # replace same value hex digit to 3 character eg 
+                ';
+                // clean CSS
+                $content = preg_replace("%{$regex}%", '$1$2$3$4$5$6$7', $content);
+                // strip http
+                $content = preg_replace('%https?:\/\/%', '//', $content);
+                $body = $response
+                    ->getBody();
+                $body->write($content);
+                $response = $response
+                    ->withHeader('Content-Type', 'text/css;charset=utf-8')
+                    ->withHeader('Cache-Control', 'max-age=2678400, public')
+                    ->withBody($body);
+                return $response;
             }
         );
     }

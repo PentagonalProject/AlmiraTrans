@@ -13,16 +13,19 @@
      * Init Document Ready
      */
     $(document).ready(function () {
-        $('head')
-            .find('link:last')
-            .after('<link href="\/\/fonts.googleapis.com\/css?family=Lato:300,400,700|Lobster" rel="stylesheet" type="text\/css">');
-
+        $('html').removeClass('no-js').addClass('js');
+        // $('head')
+        //     .find('link:last')
+        //     .after('<link href="\/\/fonts.googleapis.com\/css?family=Lato:300,400,700|Lobster" rel="stylesheet" type="text\/css">');
+        if (window.location.href.match(/\#/)) {
+            window.history.pushState("", document.title, window.location.pathname);
+        }
         /* --------------------------------------
          *              SITE
          * --------------------------------------
          */
         var $navigation = $('#header .navigation');
-        var $aHref = $navigation.find('[href^=\\#]');
+        var $aHref = $navigation.find('a[href^=\\#]');
         if ($.fn.waypoint) {
             $('section[id]').waypoint(
                 function () {
@@ -41,7 +44,7 @@
                 }
             );
         }
-        $aHref.on('click', function (e) {
+        $('a[href^=\\#]').on('click', function (e) {
             e.preventDefault();
             var attrHref = $(this).attr('href');
             if (attrHref) {
@@ -53,17 +56,56 @@
                             scrollTop: $targetId.offset().top + ($targetId.offset().top > 80 ? 0 : 0)
                         }, function () {
                             $aHref.parent().removeClass('active');
-                            $this.parent('li').addClass('active');
+                            var $Parent = $this.parent('li');
+                            if ($Parent.length) {
+                                $Parent.addClass('active');
+                            }
                         });
                     }
                 } catch(err) {}
             }
         });
+        var $selectorOpacity = $('#top-feature .contain-top');
+        var selectorOffset = $selectorOpacity.offset().top;
+        var $carJazz = $('#car-scroll .car-jazz');
+        var $carJazzInner = $carJazz.find('.inner');
+        if ($carJazzInner.length) {
+            var carJazzInnerWidth = $carJazzInner.width();
+            $carJazzInner.css('margin-left', $(window).width()+'px');
+        }
 
         $(window).on('scroll', function () {
-            var $height = $('#top').height();
+            var fadeStart = 100; // 100px scroll or less will equiv to 1 opacity
+            var $top =  $('#top');
+            var $height = $top.height();
             if (!$height) {
                 return;
+            }
+            if ($selectorOpacity.length) {
+                var fromTop = $(this).scrollTop();
+                var calc = 1;
+                if (fromTop <= fadeStart ){
+                    calc = 1;
+                }else if( fromTop <= $height){
+                    calc = 1 - fromTop / $height;
+                }
+                if (fromTop > 5) {
+                    $selectorOpacity.css({
+                        'margin': (selectorOffset + fromTop) + 'px 0px 0px 0px',
+                        opacity: calc
+                    });
+                } else {
+                    $selectorOpacity.css({
+                        'margin': null,
+                        opacity: null
+                    })
+                }
+            }
+
+            if ($carJazzInner.length) {
+                var carTop = $carJazz.offset().top;
+                var calcJass = -(fromTop - carTop);
+                $carJazzInner.css('margin-left', calcJass);
             }
             $height -= 30;
             try {
@@ -80,6 +122,20 @@
             } catch(e){}
         });
         $(window).scroll();
+        $(window).on('resize', function () {
+            $(this).scroll();
+        });
         $navigation.find('li:first > a').trigger('click');
+        console.log('\n'
+            + '\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+            + '\n-     _____  ____  ______  ___  ______  _____  ____  ______ ______   ___    -'
+            + '\n-    /  __ \\/ __ \\/  __  \\/  /_ \\___  \\/ __  \\/ __ \\/  __  \\\\___  \\ /  /    -'
+            + '\n-    / /_/ /  ___/  / /  /  __//  _   / /_/  / /_/ /  / /  /  _   //  /     -'
+            + '\n-   /  .__/\\____/\\_/ /__/\\____/\\___._/\\__   /\\____/\\_/ /__/\\___._//  /      -'
+            + '\n-  /  /  _________________________  ____/  /                     /  /____   -'
+            + '\n- /__/  \\________________________/ /______/                     ._______/   -'
+            + '\n-                                                                           -'
+            + '\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+        );
     });
 }(window);
