@@ -16,6 +16,7 @@ if (!isset($this) || ! $this instanceof Template) {
         [
             "jquery" => $this->getAttribute('base:url') . '/assets/js/jquery.js',
             "waypoints" => $this->getAttribute('base:url') . '/assets/js/waypoints.js',
+            "jssor" => $this->getAttribute('base:url') . '/assets/js/jssor.slider-22.1.6.mini.js',
             "map" => "//maps.googleapis.com/maps/api/js?callback=initMap",
             "layout" => $this->getAttribute('base:url') . '/assets/js/layout.js'
         ]
@@ -23,6 +24,9 @@ if (!isset($this) || ! $this instanceof Template) {
   </script>
   <link rel="stylesheet" href="<?= $this->getAttribute('base:url');?>/assets/css/normalize.min.css">
   <link rel="stylesheet" href="<?= $this->getAttribute('base:url');?>/assets/css/layout.css">
+  <noscript>
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700|Lobster" rel="stylesheet" type="text/css">
+  </noscript>
   <!-- common meta -->
   <meta name="title" content="<?= $this->multiByteEntities($this->getAttribute('title:meta') ?: $this->getAttribute('title'), true);?>">
   <meta name="description" content="<?= $this->multiByteEntities($this->getAttribute('description:meta') ?: $this->getAttribute('description'));?>">

@@ -15,7 +15,7 @@
     $(document).ready(function () {
         $('head')
             .find('link:last')
-            .after('<link href="\/\/fonts.googleapis.com\/css?family=Lato:300,400,700" rel="stylesheet" type="text\/css">');
+            .after('<link href="\/\/fonts.googleapis.com\/css?family=Lato:300,400,700|Lobster" rel="stylesheet" type="text\/css">');
 
         /* --------------------------------------
          *              SITE
@@ -45,11 +45,15 @@
             e.preventDefault();
             var attrHref = $(this).attr('href');
             if (attrHref) {
+                var $this = $(this);
                 try {
                     var $targetId = $(attrHref);
                     if ($targetId.length) {
                         $('html, body').animate({
-                            scrollTop: $targetId.offset().top + ($targetId.offset().top > 80 ? 5 : 0)
+                            scrollTop: $targetId.offset().top + ($targetId.offset().top > 80 ? 0 : 0)
+                        }, function () {
+                            $aHref.parent().removeClass('active');
+                            $this.parent('li').addClass('active');
                         });
                     }
                 } catch(err) {}

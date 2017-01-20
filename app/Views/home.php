@@ -8,6 +8,9 @@ if (!isset($this) || ! $this instanceof Template) {
 $this->partial('header');
 ?>
     <section id="top" class="full-vh">
+      <div id="nav-button">
+        expand
+      </div>
       <header id="header">
         <div class="navigation">
           <nav class="nav-header">
@@ -25,8 +28,28 @@ $this->partial('header');
       </header>
       <div id="top-feature" class="full-content">
         <div class="overlayed deep-5"></div>
+        <div class="contain-top">
+          <div class="main-title">
+            <h1 class="main">ALMIRA</h1>
+            <h3 class="desc">TRANS WISATA</h3>
+          </div>
+        </div>
       </div>
     </section>
+  <section id="city">
+    <div id="car-scroll">
+      <div class="building"></div>
+      <div class="scroll-infinity road">
+        <div class="car-jazz">
+          <div class="inner">
+            <img class="tire first rotate" src="<?= $this->getAttribute('base:url');?>/assets/images/animated/tire.png">
+            <img src="<?= $this->getAttribute('base:url');?>/assets/images/animated/jazz.png">
+            <img class="tire last rotate" src="<?= $this->getAttribute('base:url');?>/assets/images/animated/tire.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
     <section id="armada" class="full-vh">
 
     </section>

@@ -17,7 +17,7 @@ body {
 }
 .full-vh {
     /*min-height: 400px;*/
-    height: 100vh;
+    min-height: 100vh;
     display: block;
 }
 .container {
@@ -71,6 +71,8 @@ ul.nav li {
     float: right;
 }
 
+section::after,
+section::before,
 ul.nav::after,
 ul.nav::before,
 nav.nav-header::before,
@@ -95,9 +97,9 @@ ul.nav li {
 }
 section[id] {
     position: relative;
-    padding: 5px;
+    padding: 0;
+    margin: 0;
 }
-
 section .full-content {
     position: absolute;
     top:0;
@@ -127,8 +129,135 @@ section .full-content {
     background-color: rgba(0, 0, 0, .5);
 }
 
+.scroll-infinity {
+    animation: scroll-right 5s infinite linear;
+}
+
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(-360deg);
+        -moz-transform: rotate(-360deg);
+        -webkit-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(-360deg);
+        -moz-transform: rotate(-360deg);
+        -webkit-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+.rotate {
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+}
+
+
+@keyframes scroll-right {
+    from {
+        background-position:0 0;
+    }
+    to {
+        background-position: 500% 0;
+    }
+}
+
+@-webkit-keyframes scroll-right {
+    from {
+        background-position:0 0;
+    }
+    to {
+        background-position: 500% 0;
+    }
+}
+
+
+/* CONTENT ANIMATED
+ ------------------------------ */
+.road {
+    height: 180px;
+    display: block;
+    background: #111 url("../images/animated/ground.jpg") repeat-x bottom left;
+    position: relative;
+}
+.building {
+    height: 313px;
+    background: url("../images/animated/building.jpg") repeat-x;
+}
+.car-jazz {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    text-align: center;
+}
+.car-jazz .inner {
+    position: relative;
+    width:700px;
+    margin: 0 auto;
+}
+.car-jazz .tire {
+    position: absolute;
+    bottom: 40px;
+}
+.car-jazz .tire.first {
+    left:50%;
+    margin-left: -208px;
+}
+
+.car-jazz .tire.last {
+    right:50%;
+    margin-right: -222px;
+}
+
+
 /* COLOR
  ------------------------------ */
+.contain-top {
+    margin-top: 60px;
+    z-index: 121;
+    position: relative;
+    height: calc(100% - 60px);
+}
+.main-title {
+    letter-spacing: 1px;
+    position: relative;
+}
+.main-title h1 {
+    font-family: "Lobster", "Helvetica", arial, sans-serif;
+    font-size: 7em;
+    margin-top: 20vh;
+    text-transform: capitalize;
+    letter-spacing: 3px;
+    margin-bottom: 0;
+}
+.main-title h3 {
+    margin-top: -1em;
+    margin-left: 14em;
+}
 #top-feature {
     position: absolute;
     /*background-color: rgb(10,21,26);*/
@@ -137,6 +266,7 @@ section .full-content {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     transition: all linear 200ms;
     -webkit-filter:grayscale(100%);
     -moz-filter:grayscale(100%);
@@ -173,4 +303,28 @@ section .full-content {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
+}
+
+#nav-button {
+    position: fixed;
+    top: -120px;
+    right:0;
+    z-index:999;
+    -webkit-transition: all ease 200ms;
+    -moz-transition: all ease 200ms;
+    transition: all ease 200ms;
+}
+@media (max-width: 720px) {
+    #nav-button {
+        top: 0;
+    }
+    .main-title h1 {
+        font-size: 5em;
+    }
+    .main-title h3 {
+        margin-left: 8em;
+    }
+    .navigation {
+        display: none;
+    }
 }
