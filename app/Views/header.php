@@ -28,7 +28,6 @@ if (!isset($this) || ! $this instanceof Template) {
         [
             "jquery" => $this->getAttribute('base:url') . '/assets/js/jquery.js',
             "waypoints" => $this->getAttribute('base:url') . '/assets/js/waypoints.js',
-            "jssor" => $this->getAttribute('base:url') . '/assets/js/jssor.slider-22.1.6.mini.js',
             "layout" => $this->getAttribute('base:url') . '/assets/js/layout.js',
             "map" => $this->getAttribute('base:url') . '/assets/js/map.js',
         ]

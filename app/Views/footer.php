@@ -8,7 +8,6 @@ if (!isset($this) || ! $this instanceof Template) {
   </div>
   <!-- .wrap -->
   <script type="text/javascript">
-
     /* Write Javascript Assets Preload
      -------------------------------------- */
     var keyNameJs,
